@@ -29,7 +29,5 @@
                 <a href="resetPassword.php">Reset password</a>
                 <a href="singleNewsletter.php">Single newsletter</a>
                 <a href="emptySessionAuth.php">Empty session</a>
-                
-
             </nav>
         </header>

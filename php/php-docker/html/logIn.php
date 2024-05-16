@@ -23,6 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
         // Utför eventuella andra åtgärder, t.ex. omdirigering
         header('Location: ' . $_SERVER['REQUEST_URI']);
+        echo "Logged in";
         exit();
     } else {
         // Användaren finns inte i databasen, hantera detta scenario (t.ex. visa felmeddelande)

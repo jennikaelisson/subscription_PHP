@@ -2,41 +2,66 @@
 session_start();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
+    // Skapa en anslutning till databasen
     $mysqli = new mysqli("db", "root", "notSecureChangeMe", "assignment2");
 
+    // Hämta e-postadressen från formuläret
     $email = $_POST['email'];
     
+    // Kontrollera om e-postadressen finns i databasen
     $sql = "SELECT * FROM users WHERE email = '$email'";
     $result = $mysqli->query($sql);
 
-    // Hämta e-postadress från formuläret
-    $to = $_POST['email'];
+    if ($result->num_rows > 0) {
+        // Generera en slumpmässig kod
+        $random_code = uniqid();
 
-    // Generera slumpmässig kod
-    $random_code = uniqid();
+        // Spara den slumpmässiga koden i databasen
+        $sql_insert = "INSERT INTO passwordResets (user, code) VALUES ('$email', '$random_code')";
+        if ($mysqli->query($sql_insert) === TRUE) {
+            echo "Slumpmässig kod sparad i databasen.";
+        } else {
+            echo "Fel: " . $sql_insert . "<br>" . $mysqli->error;
+        }
 
-    // Spara den slumpmässiga koden i databasen
-$sql_insert = "INSERT INTO passwordResets (user, code) VALUES ('$email', '$random_code')";
-if ($mysqli->query($sql_insert) === TRUE) {
-    echo "Slumpmässig kod sparad i databasen.";
-} else {
-    echo "Fel: " . $sql_insert . "<br>" . $mysqli->error;
-}
-
-    // Skicka e-post
-    $subject = 'Din slumpmässiga kod';
-    $message = 'Din slumpmässiga kod är: ' . $random_code;
-    $headers = 'From: your-email@example.com'; // Ersätt med din e-postadress
-    mail($to, $subject, $message, $headers);
+        // Skicka e-postmeddelande med hjälp av Mailgun
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, 'https://api.mailgun.net/v3/sandbox194c82deb79342eca6f4bd265f08d58a.mailgun.org/messages');
+        curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+        curl_setopt($ch, CURLOPT_USERPWD, 'api:ad234a9b32fbb7782e427e212be18525-ed54d65c-6ad02178');
+        curl_setopt($ch, CURLOPT_POST, 1);
+        $formFields = [
+            'from' => 'postmaster@sandbox194c82deb79342eca6f4bd265f08d58a.mailgun.org',
+            'to' => $email,
+            'subject' => 'Din slumpmässiga kod',
+            'text' => 'Din slumpmässiga kod är: ' . $random_code
+        ];
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $formFields);
+        $response = curl_exec($ch);
+        if(curl_errno($ch)) {
+            echo 'Curl error: ' . curl_error($ch);
+        }
+        curl_close($ch);
+    } else {
+        // Användaren finns inte i databasen
+        echo "Felaktig e-postadress. Försök igen.";
+    }
 }
 ?>
 
-<div>
-    <?php echo ("Send email"); ?>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Send Email</title>
+</head>
+<body>
+    <div>
+        Send email
+    </div>
 
-    <form method="POST" action="sendEmail.php">
+    <form method="POST">
         <input type="email" name="email" value="jennika.elisson@gmail.com">
         <input type="submit">
     </form>
-</div>
+</body>
+</html>

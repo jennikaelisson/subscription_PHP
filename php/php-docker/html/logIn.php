@@ -13,6 +13,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $result = $mysqli->query($sql);
 
     if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+         // Hämta användar-ID och spara det i sessionen
+       $userId = $row['id'];
+       $_SESSION['user_id'] = $userId;
+
        // Användaren finns i databasen, så spara deras uppgifter i sessionen
        $_SESSION['email'] = $email;
        $_SESSION['password'] = $password;

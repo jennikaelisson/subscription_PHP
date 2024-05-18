@@ -16,13 +16,14 @@ if(isset($_GET['remove']) && $_GET['remove']) {
 }
 //var_dump($_SESSION);
 ?>
+<main>
     <?php
         if(isset($_SESSION['auth'])) {
             ?><a href="?remove=1">Log out</a><?php // Om inloggad, visa länk för utloggning
         } else {
             ?><a href="?add=1">Log in</a><?php // Om inte inloggad, visa länk för inloggning
         }
-    ?>
+    ?></main>
 <?php
 include('footer.php');
 ?>

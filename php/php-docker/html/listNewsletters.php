@@ -14,8 +14,7 @@ $result = $mysqli->query($sql);
     include('header.php');
 ?>
 
-<html>
-    <body>
+<main>
         <div>
         <?php echo("All newsletters"); ?>
     </div>
@@ -31,8 +30,7 @@ $result = $mysqli->query($sql);
             <?php
         }
         ?>
-    </body>
-    </html>
+</main>
 
 <?php
     include('footer.php');

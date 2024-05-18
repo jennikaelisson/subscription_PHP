@@ -6,12 +6,12 @@
     include('header.php');
 ?>
 
-
+<main>
     <div>
         <?php echo("Logged out"); ?>
     </div>
 
-
+</main>
 
 <?php
     include('footer.php');

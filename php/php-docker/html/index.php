@@ -7,7 +7,9 @@
     include('header.php');
 ?>
 
-
+<main>
+HOME
+</main>
 
 
 

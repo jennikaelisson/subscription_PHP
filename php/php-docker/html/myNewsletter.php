@@ -2,19 +2,19 @@
 session_start();
 
 
-// Kontrollera om användaren är inloggad
-if(isset($_SESSION['user_id'])) {
-    // Om användaren är inloggad, skriv ut användar-ID
-    var_dump($_SESSION['user_id']);
-} else {
-    // Om användaren inte är inloggad, visa ett meddelande
-    echo "Ingen användare är för närvarande inloggad.";
-}
+// // Kontrollera om användaren är inloggad
+// if(isset($_SESSION['user_id'])) {
+//     // Om användaren är inloggad, skriv ut användar-ID
+//     var_dump($_SESSION['user_id']);
+// } else {
+//     // Om användaren inte är inloggad, visa ett meddelande
+//     echo "Ingen användare är för närvarande inloggad.";
+// }
 
-if (!isset($_SESSION['auth']) || $_SESSION['auth'] !== 'true') {
-    header("Location: login.php");
-    exit();
-}
+// if (!isset($_SESSION['auth']) || $_SESSION['auth'] !== 'true') {
+//     header("Location: login.php");
+//     exit();
+// }
 
 $email = $_SESSION['email']; // Hämta e-postadressen från sessionen
 $password = $_SESSION['password']; // Hämta lösenordet från sessionen
@@ -39,7 +39,7 @@ include_once('functions.php');
 $title = "My page";
 include('header.php');
 ?>
-
+<main>
 
 <div>
     <?php echo("My newsletter"); ?>
@@ -53,6 +53,7 @@ while ($row = $result->fetch_assoc()) {
     <p><?php echo htmlspecialchars($row['description']); ?></p>
     <p>Owner: <?php echo htmlspecialchars($row['owner']); ?></p>
 </div>
+</main>
 <?php
 }
 ?>

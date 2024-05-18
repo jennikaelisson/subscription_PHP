@@ -5,6 +5,7 @@
     $title = "My page";
     include('header.php');
 ?>
+<main>
     <div>
         <?php echo("Create account"); ?>
     </div>
@@ -20,7 +21,7 @@
         <input type="submit" name="submit" value="Create Account">
     </form>
 
-
+</main>
 <?php
     include('footer.php');
 ?>

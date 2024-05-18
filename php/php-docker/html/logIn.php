@@ -26,9 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
        $_SESSION['role'] = 'customer';
        $_SESSION['auth'] = 'true';
         
-        // Utför eventuella andra åtgärder, t.ex. omdirigering
-        header('Location: ' . $_SERVER['REQUEST_URI']);
-        echo "Logged in";
+       header('Location: myPages.php');
         exit();
     } else {
         // Användaren finns inte i databasen, hantera detta scenario (t.ex. visa felmeddelande)
@@ -42,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 $title = "My page";
 include('header.php');
 ?>
-
+<main>
 
 <div>
     <?php echo ("Log in"); ?>
@@ -55,7 +53,7 @@ include('header.php');
         <input type="submit">
     </form>
 </div>
-
+</main>
 
 
 <?php

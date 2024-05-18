@@ -27,16 +27,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $checkResult = $checkStmt->get_result();
 
         if ($checkResult->num_rows > 0) {
-            $message = "Du prenumererar redan på detta nyhetsbrev.";
+            $message = "You're already subscribing to this newsletter.";
         } else {
             // Lägg till prenumeration
             $sql = "INSERT INTO subscriptions (user, newsletterId) VALUES (?, ?)";
             $stmt = $mysqli->prepare($sql);
             $stmt->bind_param("ii", $userId, $newsletterId);
             if ($stmt->execute()) {
-                $message = "Du har börjat prenumerera på nyhetsbrevet.";
+                $message = "You are now subscribing to this newsletter.";
             } else {
-                $message = "Det gick inte att börja prenumerera: " . $stmt->error;
+                $message = "There was a problem when you tried to subscribe: " . $stmt->error;
             }
             $stmt->close();
         }
@@ -47,13 +47,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt = $mysqli->prepare($sql);
         $stmt->bind_param("ii", $userId, $newsletterId);
         if ($stmt->execute()) {
-            $message = "Du har avslutat prenumerationen på nyhetsbrevet.";
+            $message = "You have cancelled your subscription to this newsletter.";
         } else {
-            $message = "Det gick inte att avsluta prenumerationen: " . $stmt->error;
+            $message = "It was not possible to cancel the subscription: " . $stmt->error;
         }
         $stmt->close();
     }
 }
+
+// Kontrollera prenumerationsstatus
+$subscriptionSql = "SELECT * FROM subscriptions WHERE user = ? AND newsletterId = ?";
+$subscriptionStmt = $mysqli->prepare($subscriptionSql);
+$subscriptionStmt->bind_param("ii", $userId, $newsletterId);
+$subscriptionStmt->execute();
+$subscriptionResult = $subscriptionStmt->get_result();
+$isSubscribed = $subscriptionResult->num_rows > 0;
+$subscriptionStmt->close();
 
 // Hämta detaljer om nyhetsbrevet
 $sql = "SELECT title, description FROM newsletters WHERE id = ?";
@@ -68,8 +77,8 @@ if ($result->num_rows > 0) {
     $newsletterTitle = htmlspecialchars($newsletter['title']);
     $newsletterDescription = htmlspecialchars($newsletter['description']);
 } else {
-    $newsletterTitle = "Nyhetsbrevet hittades inte";
-    $newsletterDescription = "Det finns inget nyhetsbrev med det angivna id:t.";
+    $newsletterTitle = "The newsletter wasn't found.";
+    $newsletterDescription = "There is no newsletter with this id.";
 }
 
 $stmt->close();
@@ -87,10 +96,13 @@ $mysqli->close();
 
 <!-- Prenumerationsknappar -->
 <div>
-    <form method="post">
+<form method="post">
         <input type="hidden" name="newsletter_id" value="<?php echo htmlspecialchars($newsletterId); ?>">
-        <button type="submit" name="subscribe">Prenumerera</button>
-        <button type="submit" name="unsubscribe">Avsluta prenumeration</button>
+        <?php if ($isSubscribed): ?>
+            <button type="submit" name="unsubscribe">Cancel subscription</button>
+        <?php else: ?>
+            <button type="submit" name="subscribe">Subscribe</button>
+        <?php endif; ?>
     </form>
 </div>
 

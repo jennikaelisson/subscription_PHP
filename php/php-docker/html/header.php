@@ -16,6 +16,10 @@
         <header>
             <div>Header logo</div>
             <nav>
+                <!-- Om man är utloggad ska man se: <a href="listNewsletters.php">All newsletters</a>, <a href="logIn.php">Log in</a>, <a href="createAccount.php">Create account</a>.
+                Om man är inloggad som customer ska man se: <a href="mySubscribers.php">My subscribers</a>, <a href="myNewsletter.php">My newsletters</a>, <a href="emptySessionAuth.php">Empty session</a>.
+                Om man är inloggad som subscriber ska man se: <a href="listNewsletters.php">All newsletters</a>, <a href="singleNewsletter.php">Single newsletter</a>, <a href="emptySessionAuth.php">Empty session</a>
+ -->
                 <a href="index.php">Home</a>
                 <a href="createAccount.php">Create account</a>
                 <a href="createNewPassword.php">Create new password</a>

@@ -26,7 +26,7 @@ if (session_status() == PHP_SESSION_NONE) {
         // Kontrollera om användaren är inloggad och om roll är definierad
         if (isset($_SESSION['auth']) && isset($_SESSION['auth']['role'])): 
             $userRole = $_SESSION['auth']['role'];
-        var_dump($userRole);
+    
         ?>
         
             <?php if ($userRole == 'customer'): ?>

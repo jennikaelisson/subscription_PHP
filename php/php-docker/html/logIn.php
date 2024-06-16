@@ -45,14 +45,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 
 include('header.php');
-?>
-<main>
-    <form method="POST">
-        <input type="email" name="email" placeholder="Email" required>
-        <input type="password" name="password" placeholder="Password" required>
-        <input type="submit" name="login" value="Login">
-    </form>
-</main>
+?><main>
+ <div class="form-container">
+        <h2>Login</h2>
+        <form method="POST">
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <input type="submit" name="login" value="Login" class="form-button">
+        </form>
+        <div><p>Forgot your password?</p></div>
+    </div></main>
 <?php
 include('footer.php');
 ?>

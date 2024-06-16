@@ -25,11 +25,9 @@ $title = "My page";
 include('header.php');
 ?>
 <main>
-    <div>
-        <?php echo("My newsletter"); ?>
-    </div>
+<div><h2>My newsletters</h2></div>
     <?php while ($row = $result->fetch_assoc()): ?>
-    <div style="border: 1px solid #000000">
+        <div style="border: 1px solid #000000; padding: 10px; margin: 10px;">
         <!-- Skapa en länk som pekar på singleNewsletter.php med nyhetsbrevets ID i querystring -->
         <h3><a href="singleNewsletter.php?id=<?php echo htmlspecialchars($row['id']); ?>"><?php echo htmlspecialchars($row['title']); ?></a></h3>
         <p><?php echo htmlspecialchars($row['description']); ?></p>

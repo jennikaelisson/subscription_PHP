@@ -34,23 +34,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 ?>
 <main>
-    <div>
-        <?php echo("Create account"); ?>
+<div class="form-container">
+        <h2>Create an account</h2>
+        <form method="POST">
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <input type="text" name="firstName" placeholder="First name" required>
+            <input type="text" name="lastName" placeholder="Last name" required>
+            <label for="role">Select Role:</label>
+            <select name="role" id="role" required>
+                <option value="customer">Customer</option>
+                <option value="subscriber">Subscriber</option>
+            </select>
+            <input type="submit" name="submit" value="Create Account" class="form-button">
+        </form>
     </div>
-
-    <form method="POST">
-        <input type="email" name="email" placeholder="Email" required>
-        <input type="password" name="password" placeholder="Password" required>
-        <input type="text" name="firstName" placeholder="First name" required>
-        <input type="text" name="lastName" placeholder="Last name" required>
-
-        <label for="role">Select Role:</label>
-        <select name="role" id="role" required>
-            <option value="customer">Customer</option>
-            <option value="subscriber">Subscriber</option>
-        </select>
-        <input type="submit" name="submit" value="Create Account">
-    </form>
 </main>
 <?php
 include('footer.php');

@@ -57,6 +57,139 @@ main {
     color: #333; /* Dark grey text */
 }
 
+/* Main content styling for the homepage */
+.home-content {
+    text-align: center;
+    padding: 50px 20px;
+    background-color: #fff;
+    border: 2px solid #ffcc00; /* Retro yellow border */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    max-width: 800px;
+    margin: 50px auto;
+}
+
+.home-content h1 {
+    font-size: 48px;
+    color: #d44d5c; /* Retro red */
+    font-family: 'Courier New', Courier, monospace;
+    margin-bottom: 20px;
+}
+
+.home-content p {
+    font-size: 20px;
+    color: #333; /* Dark grey text */
+    line-height: 1.6;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.form-container {
+    margin-bottom: 20px;
+}
+
+.form-container h2 {
+    color: #d44d5c; /* Retro red */
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+form input[type="email"],
+form input[type="password"],
+form input[type="text"],
+form select {
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 2px solid #d44d5c; /* Retro red */
+    border-radius: 4px;
+    font-size: 16px;
+    color: #333;
+}
+
+form input[type="email"]:focus,
+form input[type="password"]:focus,
+form input[type="text"]:focus,
+form select:focus {
+    outline: none;
+    border-color: #ffcc00; /* Retro yellow */
+}
+
+label {
+    margin-bottom: 5px;
+    color: #333;
+    font-weight: bold;
+}
+
+.form-button {
+    font-family: 'Courier New', Courier, monospace;
+
+    background-color: #d44d5c; /* Retro red */
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.form-button:hover {
+    background-color: #ffcc00; /* Retro yellow */
+    color: #000;
+}
+
+div p {
+    font-size: 14px;
+    color: #666;
+    margin-top: 10px;
+    font-family: 'Courier New', Courier, monospace;
+
+}
+
+/* Button styling */
+.unsub-button {
+    background-color: #d44d5c; /* Retro red */
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    font-family: 'Courier New', Courier, monospace;
+    padding: 10px 20px;
+    border: 2px solid #d44d5c;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.sub-button {
+    background-color: #67b26f; /* Retro green */
+    border: 2px solid #67b26f;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    font-family: 'Courier New', Courier, monospace;
+    padding: 10px 20px;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* Subscribe button styling */
+button.subscribe {
+    background-color: #67b26f; /* Retro green */
+    border: 2px solid #67b26f;
+}
+
+button:hover {
+    background-color: #ffcc00; /* Retro yellow on hover */
+    color: #000;
+    border-color: #000;
+}
+
+
 /* Footer styling */
 footer {
     background-color: #ffcc00; /* Retro yellow */

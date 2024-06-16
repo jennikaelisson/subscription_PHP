@@ -1,61 +1,58 @@
 <?php
-include_once('functions.php');
 session_start();
+include_once('functions.php');
+$title = "Login";
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    $mysqli = new mysqli("db", "root", "notSecureChangeMe", "assignment2");
-
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    $sql = "SELECT * FROM users WHERE email = '$email' AND password = '$password'";
-    $result = $mysqli->query($sql);
+    // Anslut till databasen
+    $conn = new mysqli("db", "root", "notSecureChangeMe", "assignment2");
 
-    if ($result->num_rows > 0) {
-        $row = $result->fetch_assoc();
-         // Hämta användar-ID och spara det i sessionen
-       $userId = $row['id'];
-       $_SESSION['user_id'] = $userId;
-
-       // Användaren finns i databasen, så spara deras uppgifter i sessionen
-       $_SESSION['email'] = $email;
-       $_SESSION['password'] = $password;
-       
-       // Sätt roll och autentiseringsstatus i sessionen
-       $_SESSION['role'] = 'customer';
-       $_SESSION['auth'] = 'true';
-        
-       header('Location: myPages.php');
-        exit();
-    } else {
-        // Användaren finns inte i databasen, hantera detta scenario (t.ex. visa felmeddelande)
-        echo "Felaktiga användaruppgifter. Försök igen.";
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
     }
-    var_dump($_SESSION);
-    header('Location: ' . $_SERVER['REQUEST_URI']);
+
+    // Förbered och bind
+    $stmt = $conn->prepare("SELECT id, password, role FROM users WHERE email = ?");
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $stmt->store_result();
+
+    if ($stmt->num_rows > 0) {
+        $stmt->bind_result($id, $password_hash, $role);
+        $stmt->fetch();
+
+        if (password_verify($password, $password_hash)) {
+            $_SESSION['auth'] = [
+                'id' => $id,
+                'email' => $email,
+                'role' => $role
+            ];
+            header('Location: index.php');
+            exit;
+        } else {
+            echo "Invalid email or password.";
+        }
+    } else {
+        echo "No user found with that email.";
+    }
+
+    $stmt->close();
+    $conn->close();
 }
-?>
-<?php
-$title = "My page";
+
 include('header.php');
 ?>
 <main>
-
-<div>
-    <?php echo ("Log in"); ?>
-
     <form method="POST">
-        <input type="hidden" name="role" value="customer">
-        <input type="hidden" name="auth" value="true">
-        <input type="email" name="email" value="jennika.elisson@gmail.com">
-        <input type="password" name="password" value="123456">
-        <input type="submit">
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <input type="submit" name="login" value="Login">
     </form>
-</div>
 </main>
-
-
 <?php
 include('footer.php');
 ?>

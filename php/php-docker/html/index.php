@@ -1,5 +1,6 @@
 <?php
-    include_once('functions.php');
+session_start();
+include_once('functions.php');
 ?>  
 
 <?php
@@ -7,7 +8,9 @@
     include('header.php');
 ?>
 
-
+<main>
+HOME
+</main>
 
 
 

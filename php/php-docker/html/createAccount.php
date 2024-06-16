@@ -1,26 +1,57 @@
 <?php
-    include_once('functions.php');
-?>    
-<?php
-    $title = "My page";
-    include('header.php');
+include_once('functions.php');
+include('header.php');
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    $firstname = $_POST['firstName'];
+    $lastname = $_POST['lastName'];
+    $role = $_POST['role'];
+
+    // Hasha lösenordet
+    $password_hash = password_hash($password, PASSWORD_DEFAULT);
+
+    // Anslut till databasen
+    $conn = new mysqli("db", "root", "notSecureChangeMe", "assignment2");
+
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    // Förbered och bind
+    $stmt = $conn->prepare("INSERT INTO users (firstName, lastName, email, password, role) VALUES (?, ?, ?, ?, ?)");
+    $stmt->bind_param("sssss", $firstname, $lastname, $email, $password_hash, $role);
+
+    if ($stmt->execute()) {
+        echo "New account created successfully";
+    } else {
+        echo "Error: " . $stmt->error;
+    }
+
+    $stmt->close();
+    $conn->close();
+}
 ?>
+<main>
     <div>
         <?php echo("Create account"); ?>
     </div>
 
-    <form action="post">
-        <input type="email" name="email" placeholder="Email">
-        <input type="password" name="password" placeholder="Password">
+    <form method="POST">
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <input type="text" name="firstName" placeholder="First name" required>
+        <input type="text" name="lastName" placeholder="Last name" required>
+
         <label for="role">Select Role:</label>
-        <select name="role" id="role">
+        <select name="role" id="role" required>
             <option value="customer">Customer</option>
             <option value="subscriber">Subscriber</option>
         </select>
         <input type="submit" name="submit" value="Create Account">
     </form>
-
-
+</main>
 <?php
-    include('footer.php');
+include('footer.php');
 ?>

@@ -84,7 +84,7 @@ if ($result->num_rows > 0) {
 $stmt->close();
 $mysqli->close();
 ?>
-
+<main>
 <div>
     <?php echo("Single newsletter"); ?>
 </div>
@@ -105,6 +105,7 @@ $mysqli->close();
         <?php endif; ?>
     </form>
 </div>
+        </main>
 
 <?php
 include('footer.php');

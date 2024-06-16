@@ -38,7 +38,7 @@
         }
     }
 ?>
-
+<main>
 <div>
     <?php echo("Create new password"); ?>
 </div>
@@ -50,6 +50,7 @@
     <input type="code" name="code" placeholder="Enter your unique code">
     <input type="submit" value="Submit">
 </form>
+</main>
 
 <?php
     include('footer.php');

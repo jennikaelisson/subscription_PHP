@@ -53,7 +53,7 @@ include('header.php');
             <input type="password" name="password" placeholder="Password" required>
             <input type="submit" name="login" value="Login" class="form-button">
         </form>
-        <div><p>Forgot your password?</p></div>
+        <div><p><a href="resetPassword.php">Forgot your password?</a></p></div>
     </div></main>
 <?php
 include('footer.php');

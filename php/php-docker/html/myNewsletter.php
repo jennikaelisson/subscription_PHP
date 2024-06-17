@@ -31,7 +31,6 @@ include('header.php');
         <!-- Skapa en länk som pekar på singleNewsletter.php med nyhetsbrevets ID i querystring -->
         <h3><a href="singleNewsletter.php?id=<?php echo htmlspecialchars($row['id']); ?>"><?php echo htmlspecialchars($row['title']); ?></a></h3>
         <p><?php echo htmlspecialchars($row['description']); ?></p>
-        <p>Owner: <?php echo htmlspecialchars($row['owner']); ?></p>
     </div>
     <?php endwhile; ?>
 </main>

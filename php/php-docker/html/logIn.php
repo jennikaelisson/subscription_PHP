@@ -46,6 +46,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 include('header.php');
 ?><main>
+    <?php 
+    if (isset($_GET['message'])) {
+        if ($_GET['message'] === 'created') {
+            echo "Created account";
+        } elseif ($_GET['message'] === 'updated') {
+            echo "Password updated";
+        }
+    }
+    ?>
  <div class="form-container">
         <h2>Login</h2>
         <form method="POST">
@@ -53,8 +62,9 @@ include('header.php');
             <input type="password" name="password" placeholder="Password" required>
             <input type="submit" name="login" value="Login" class="form-button">
         </form>
-        <div><p><a href="resetPassword.php">Forgot your password?</a></p></div>
-    </div></main>
+        <div><p><a href="emailForm.php">Forgot your password?</a></p></div>
+    </div>
+</main>
 <?php
 include('footer.php');
 ?>

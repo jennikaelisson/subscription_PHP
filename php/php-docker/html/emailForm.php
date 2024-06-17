@@ -1,5 +1,9 @@
 <?php
 session_start();
+include_once('functions.php');
+$title = "Reset your password";
+
+
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Skapa en anslutning till databasen
@@ -19,7 +23,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Spara den slumpmässiga koden i databasen
         $sql_insert = "INSERT INTO passwordResets (user, code) VALUES ('$email', '$random_code')";
         if ($mysqli->query($sql_insert) === TRUE) {
-            echo "Slumpmässig kod sparad i databasen.";
+            header('Location: resetPassword.php'); 
+            exit();
         } else {
             echo "Fel: " . $sql_insert . "<br>" . $mysqli->error;
         }
@@ -47,21 +52,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo "Felaktig e-postadress. Försök igen.";
     }
 }
+include('header.php');
+
 ?>
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Send Email</title>
-</head>
-<body>
-    <div>
-        Send email
-    </div>
+<main>
+ <div class="form-container">
+ <h2>Reset your password   </h2>   
 
     <form method="POST">
-        <input type="email" name="email" value="jennika.elisson@gmail.com">
-        <input type="submit">
-    </form>
-</body>
-</html>
+        <input type="email" name="email" placeholder="Your email address">
+        <input type="submit" class="form-button"value="Reset password">
+    </form> 
+</div>
+</main>
+<?php
+include('footer.php');
+?>

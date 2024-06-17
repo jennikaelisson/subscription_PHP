@@ -1,6 +1,5 @@
 <?php
 include_once('functions.php');
-include('header.php');
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = $_POST['email'];
@@ -9,22 +8,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $lastname = $_POST['lastName'];
     $role = $_POST['role'];
 
-    // Hasha lösenordet
     $password_hash = password_hash($password, PASSWORD_DEFAULT);
 
-    // Anslut till databasen
     $conn = new mysqli("db", "root", "notSecureChangeMe", "assignment2");
 
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
 
-    // Förbered och bind
     $stmt = $conn->prepare("INSERT INTO users (firstName, lastName, email, password, role) VALUES (?, ?, ?, ?, ?)");
     $stmt->bind_param("sssss", $firstname, $lastname, $email, $password_hash, $role);
 
     if ($stmt->execute()) {
-        echo "New account created successfully";
+        header('Location: logIn.php?message=created'); 
+        exit();
     } else {
         echo "Error: " . $stmt->error;
     }
@@ -32,6 +29,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $stmt->close();
     $conn->close();
 }
+include('header.php');
+
+
 ?>
 <main>
 <div class="form-container">

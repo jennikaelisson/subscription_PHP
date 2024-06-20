@@ -3,7 +3,7 @@
     include_once('functions.php');
 ?>    
 <?php
-    $title = "My page";
+    $title = "Reset password";
     include('header.php');
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {

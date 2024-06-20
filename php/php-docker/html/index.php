@@ -4,11 +4,18 @@ include_once('functions.php');
 ?>  
 
 <?php
-    $title = "My page";
+    $title = "Home";
     include('header.php');
 ?>
 
 <main>
+<?php 
+    if (isset($_GET['message'])) {
+        if ($_GET['message'] === 'loggedout') {
+            echo "You have been logged out";
+        } 
+    }
+    ?>
 <div class="home-content">
         <?php if (!isset($_SESSION['auth'])): ?>
             <h1>Welcome to Groovy Times Collective</h1>

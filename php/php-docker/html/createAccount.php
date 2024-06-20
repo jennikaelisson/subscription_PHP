@@ -1,5 +1,6 @@
 <?php
 include_once('functions.php');
+$title = "Create an account";
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = $_POST['email'];

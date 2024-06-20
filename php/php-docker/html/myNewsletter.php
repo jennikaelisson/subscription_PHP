@@ -1,5 +1,6 @@
 <?php
 session_start();
+$title = "My newsletters";
 
 $userId = $_SESSION['auth']['id'];
 
@@ -18,7 +19,7 @@ $stmt->execute();
 $result = $stmt->get_result();
 
 include_once('functions.php');
-$title = "My page";
+
 include('header.php');
 ?>
 <main>

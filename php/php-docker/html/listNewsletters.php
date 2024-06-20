@@ -10,7 +10,7 @@ $result = $mysqli->query($sql);
     include_once('functions.php');
 ?>    
 <?php
-    $title = "My page";
+    $title = "Newsletters";
     include('header.php');
 ?>
 

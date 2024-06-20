@@ -2,7 +2,7 @@
 session_start();
 
 if (!isset($_SESSION['auth']['id'])) {
-    header("Location: login.php");
+    header("Location: login.php?message=unathorized");
     exit();
 }
 

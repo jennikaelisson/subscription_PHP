@@ -7,7 +7,6 @@ include('header.php');
 
 $newsletterId = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
-// Kontrollera om användar-ID är satt i sessionen
 if (!isset($_SESSION['auth']['id'])) {
     die("User ID not found in session. Please log in.");
 }

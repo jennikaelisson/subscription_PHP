@@ -8,14 +8,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    // Anslut till databasen
     $conn = new mysqli("db", "root", "notSecureChangeMe", "assignment2");
 
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
 
-    // Förbered och bind
     $stmt = $conn->prepare("SELECT id, password, role FROM users WHERE email = ?");
     $stmt->bind_param("s", $email);
     $stmt->execute();
@@ -52,6 +50,8 @@ include('header.php');
             echo "Created account";
         } elseif ($_GET['message'] === 'updated') {
             echo "Password updated";
+        } elseif ($_GET['message'] === 'unathorized') {
+            echo "You need to login to subscribe";
         }
     }
     ?>

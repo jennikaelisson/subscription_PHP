@@ -20,7 +20,6 @@ $result = $mysqli->query($sql);
     </div>
     <div>
         <?php
-        // Loopa genom varje nyhetsbrev och visa dem
         while ($row = $result->fetch_assoc()) {
             ?>
             <div style="border: 1px solid #000000; padding: 10px; margin: 10px;">

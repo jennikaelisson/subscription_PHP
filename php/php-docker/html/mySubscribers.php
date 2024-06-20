@@ -1,17 +1,14 @@
 <?php
 session_start();
 
-// Hämta användarens ID från sessionen
 $userId = $_SESSION['auth']['id'];
 
-// Anslut till databasen
 $mysqli = new mysqli("db", "root", "notSecureChangeMe", "assignment2");
 
 if ($mysqli->connect_error) {
     die("Connection failed: " . $mysqli->connect_error);
 }
 
-// Förbered och exekvera SQL-frågan för att hämta prenumeranter för nyhetsbrev som ägs av den inloggade kunden
 $sql = "SELECT users.email, users.firstName, users.lastName 
         FROM subscriptions 
         JOIN users ON subscriptions.user = users.id 

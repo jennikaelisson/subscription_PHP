@@ -1,7 +1,6 @@
 <?php
-include_once('functions.php');
 session_start();
-
+include_once('functions.php');
 $title = "My page";
 include('header.php');
 
@@ -13,11 +12,7 @@ if (!isset($_SESSION['auth']['id'])) {
 
 $userId = $_SESSION['auth']['id'];
 
-$mysqli = new mysqli("db", "root", "notSecureChangeMe", "assignment2");
-
-if ($mysqli->connect_error) {
-    die("Connection failed: " . $mysqli->connect_error);
-}
+$mysqli = connect_to_database();
 
 $message = "";
 

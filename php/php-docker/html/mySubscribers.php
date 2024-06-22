@@ -3,11 +3,10 @@ session_start();
 
 $userId = $_SESSION['auth']['id'];
 
-$mysqli = new mysqli("db", "root", "notSecureChangeMe", "assignment2");
+include_once('functions.php');
 
-if ($mysqli->connect_error) {
-    die("Connection failed: " . $mysqli->connect_error);
-}
+$mysqli = connect_to_database();
+
 
 $sql = "SELECT users.email, users.firstName, users.lastName 
         FROM subscriptions 
@@ -19,11 +18,12 @@ $stmt->bind_param("i", $userId);
 $stmt->execute();
 $result = $stmt->get_result();
 
-include_once('functions.php');
+
 $title = "My subscribers";
 include('header.php');
 ?>
 <main>
+    <?php no_access_customer(); ?>
     <div>
         <h2>My Subscribers</h2>
         <?php if ($result->num_rows == 0): ?>

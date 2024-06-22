@@ -1,8 +1,3 @@
-<?php 
-if (session_status() == PHP_SESSION_NONE) {
-    session_start();
-}
-?>
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href="styles.css?v=<?php echo time(); ?>">

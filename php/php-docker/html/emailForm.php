@@ -6,7 +6,7 @@ $title = "Reset your password";
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $mysqli = new mysqli("db", "root", "notSecureChangeMe", "assignment2");
+    $mysqli = connect_to_database();
 
     $email = $_POST['email'];
     

@@ -3,11 +3,9 @@ session_start();
 
 $userId = $_SESSION['auth']['id'];
 
-$mysqli = new mysqli("db", "root", "notSecureChangeMe", "assignment2");
+include_once('functions.php');
 
-if ($mysqli->connect_error) {
-    die("Connection failed: " . $mysqli->connect_error);
-}
+$mysqli = connect_to_database();
 
 $sql = "SELECT subscriptions.id as subscription_id, newsletters.title, newsletters.description
         FROM subscriptions 
@@ -19,11 +17,18 @@ $stmt->bind_param("i", $userId);
 $stmt->execute();
 $result = $stmt->get_result();
 
-include_once('functions.php');
 $title = "My Subscriptions";
 include('header.php');
 ?>
 <main>
+<?php 
+    if (isset($_GET['message'])) {
+        if ($_GET['message'] === 'already_subscribed') {
+            echo "You are aleready subscribing to this newsletter";
+        }
+    }
+    ?>
+    <?php no_access_subscriber(); ?>
     <div>
         <h2>My Subscriptions</h2>
         <?php if ($result->num_rows == 0): ?>

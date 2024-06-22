@@ -1,6 +1,8 @@
 <?php
 session_start();
 
+include_once('functions.php');
+
 if (!isset($_SESSION['auth']['id'])) {
     header("Location: login.php");
     exit();
@@ -14,11 +16,7 @@ if (!isset($_POST['subscription_id'])) {
 
 $subscription_id = intval($_POST['subscription_id']);
 
-$mysqli = new mysqli("db", "root", "notSecureChangeMe", "assignment2");
-
-if ($mysqli->connect_error) {
-    die("Connection failed: " . $mysqli->connect_error);
-}
+$mysqli = connect_to_database();
 
 $sql = "DELETE FROM subscriptions WHERE id = ? AND user = ?";
 $stmt = $mysqli->prepare($sql);

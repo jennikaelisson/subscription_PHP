@@ -11,13 +11,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $password_hash = password_hash($password, PASSWORD_DEFAULT);
 
-    $conn = new mysqli("db", "root", "notSecureChangeMe", "assignment2");
+    $mysql = connect_to_database();
 
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
+    if ($mysql->connect_error) {
+        die("Connection failed: " . $mysql->connect_error);
     }
 
-    $stmt = $conn->prepare("INSERT INTO users (firstName, lastName, email, password, role) VALUES (?, ?, ?, ?, ?)");
+    $stmt = $mysql->prepare("INSERT INTO users (firstName, lastName, email, password, role) VALUES (?, ?, ?, ?, ?)");
     $stmt->bind_param("sssss", $firstname, $lastname, $email, $password_hash, $role);
 
     if ($stmt->execute()) {
@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     $stmt->close();
-    $conn->close();
+    $mysql->close();
 }
 include('header.php');
 

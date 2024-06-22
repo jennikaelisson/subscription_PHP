@@ -1,6 +1,8 @@
 <?php
 session_start();
 include_once('functions.php');
+$title = "Reset your password";
+
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $code = $_POST['code'];
@@ -9,13 +11,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $password_hash = password_hash($password, PASSWORD_DEFAULT);
 
-    $conn = new mysqli("db", "root", "notSecureChangeMe", "assignment2");
+    $mysql = connect_to_database();
 
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
-
-    $stmt = $conn->prepare("SELECT code FROM passwordResets WHERE user = ?");
+    $stmt = $mysql->prepare("SELECT code FROM passwordResets WHERE user = ?");
     $stmt->bind_param("s", $email);
     $stmt->execute();
     $stmt->store_result();
@@ -24,10 +22,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $stmt->close();
 
     if ($code === $stored_code) {
-        $stmt = $conn->prepare("UPDATE users SET password = ? WHERE email = ?");
+        $stmt = $mysql->prepare("UPDATE users SET password = ? WHERE email = ?");
         $stmt->bind_param("ss", $password_hash, $email);
         if ($stmt->execute()) {
-            $delete_stmt = $conn->prepare("DELETE FROM passwordResets WHERE user = ?");
+            $delete_stmt = $mysql->prepare("DELETE FROM passwordResets WHERE user = ?");
             $delete_stmt->bind_param("s", $email);
             $delete_stmt->execute();
             $delete_stmt->close();
@@ -41,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } else {
         echo "Invalid code. Please try again.";
     }
-    $conn->close();
+    $mysql->close();
 }
 
 include('header.php');

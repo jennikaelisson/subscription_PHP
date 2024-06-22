@@ -4,11 +4,9 @@ $title = "My newsletters";
 
 $userId = $_SESSION['auth']['id'];
 
-$mysqli = new mysqli("db", "root", "notSecureChangeMe", "assignment2");
+include_once('functions.php');
 
-if ($mysqli->connect_error) {
-    die("Connection failed: " . $mysqli->connect_error);
-}
+$mysqli = connect_to_database();
 
 $sql = "SELECT * 
         FROM newsletters 
@@ -18,11 +16,10 @@ $stmt->bind_param("i", $userId);
 $stmt->execute();
 $result = $stmt->get_result();
 
-include_once('functions.php');
-
 include('header.php');
 ?>
 <main>
+    <?php no_access_customer(); ?>
 <div>
     <h2>My newsletters</h2><a href="addNewsletter.php">Create newsletter</a>
 </div>

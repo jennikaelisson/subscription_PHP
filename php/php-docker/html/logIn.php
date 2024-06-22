@@ -1,5 +1,4 @@
 <?php
-session_start();
 include_once('functions.php');
 $title = "Login";
 
@@ -8,13 +7,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    $conn = new mysqli("db", "root", "notSecureChangeMe", "assignment2");
+    $mysql = connect_to_database();
 
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
-
-    $stmt = $conn->prepare("SELECT id, password, role FROM users WHERE email = ?");
+    $stmt = $mysql->prepare("SELECT id, password, role FROM users WHERE email = ?");
     $stmt->bind_param("s", $email);
     $stmt->execute();
     $stmt->store_result();
@@ -39,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     $stmt->close();
-    $conn->close();
+    $mysql->close();
 }
 
 include('header.php');

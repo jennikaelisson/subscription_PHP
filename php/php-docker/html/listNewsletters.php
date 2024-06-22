@@ -1,15 +1,12 @@
 <?php
     session_start();
-
-    $mysqli = new mysqli("db", "root", "notSecureChangeMe", "assignment2");
+    include_once('functions.php');
+    $mysqli = connect_to_database();
 
     $sql = "SELECT * FROM newsletters";
-$result = $mysqli->query($sql);
-?>
-<?php
-    include_once('functions.php');
-?>    
-<?php
+    $result = $mysqli->query($sql);
+
+   
     $title = "Newsletters";
     include('header.php');
 ?>

@@ -44,6 +44,28 @@ nav a:hover {
     background-color: #ffcc00; /* Matching background on hover */
 }
 
+a {
+    color: #d44d5c; /* Retro red */
+    text-decoration: none;
+    margin: 0 15px;
+    font-size: 18px;
+    font-weight: bold;
+    display: inline-block;
+    padding: 5px 10px;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+a:visited {
+    color: #d44d5c;
+  }
+
+a:hover {
+    color: #000;
+    border-color: #d44d5c;
+    background-color: #ffcc00; /* Matching background on hover */
+}
+
 main {
     padding: 20px;
     max-width: 1000px;
